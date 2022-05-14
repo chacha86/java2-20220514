@@ -18,11 +18,7 @@ public class Main {
 			} else if (cmd.equals("exit")) {
 				System.out.println("프로그램을 종료합니다.");
 				break;
-
-			} else {
-				System.out.println("알 수 없는 명령어입니다.");
-				System.out.println("test");
-			}
+			} 
 		}
 	}
 
