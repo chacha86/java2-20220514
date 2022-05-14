@@ -21,6 +21,7 @@ public class Main {
 
 			} else {
 				System.out.println("알 수 없는 명령어입니다.");
+				System.out.println("test");
 			}
 		}
 	}
