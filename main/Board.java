@@ -4,33 +4,38 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Board {
+
+	ArticleRepository repo = new ArticleRepository();
+	ArticleView articleView = new ArticleView();
 	
-	ArrayList<Article> articles = new ArrayList<>();
 	Scanner sc = new Scanner(System.in);
 	
 	public void run() {	
 
-		makeTestData();
+		repo.makeTestData();
 		
 		while (true) {
 			System.out.print(">> ");
 			String cmd = sc.nextLine();
 
 			if (cmd.equals("help")) {
-				printHelp();
+				articleView.printHelp();
 
 			} else if (cmd.equals("add")) {
 				addArticle();
 				
 			} else if (cmd.equals("list")) {
-				printArticles(articles);
+				articleView.printArticles(repo.getArticles());
 
 			} else if (cmd.equals("update")) {
 				updateArticle();
-				printArticles(articles);
+				articleView.printArticles(repo.getArticles());
 				
 			} else if(cmd.equals("search")) {
 				searchArticles();				
+				
+			} else if(cmd.equals("read")) {
+				readArticle();
 				
 			} else if (cmd.equals("exit")) {
 				System.out.println("프로그램을 종료합니다.");
@@ -42,40 +47,30 @@ public class Board {
 		}
 	}
 	
+	private void readArticle() {
+		
+		System.out.print("상세보기 할 게시물 번호 : ");
+		int targetIdx = Integer.parseInt(sc.nextLine());
+		targetIdx--;
+		
+		Article article = repo.getArticleOne(targetIdx);
+		
+		if(article == null) {
+			System.out.println("없는 게시물입니다.");
+			
+		} else {
+			articleView.printArticleDetail(article, targetIdx);
+		}
+	}
+	
 	private void searchArticles() {
 		
 		System.out.print("검색 키워드를 입력해주세요 : ");
 		String keyword = sc.nextLine();
 		
-		ArrayList<Article> searchedArticleList = new ArrayList<>();
+		ArrayList<Article> searchedList = repo.getSearchedArticleList(keyword);		
+		articleView.printArticles(searchedList);
 		
-		for(int i = 0; i < articles.size(); i++) {
-			if(articles.get(i).title.contains(keyword)) {
-				searchedArticleList.add(articles.get(i));
-			}
-		}
-		
-		printArticles(searchedArticleList);
-		
-	}
-
-	private void makeTestData() {		
-		
-		Article a1 = new Article("제목1", "내용1");
-		Article a2 = new Article("제목2", "내용2");
-		Article a3 = new Article("제목3", "내용3");
-		
-		articles.add(a1);
-		articles.add(a2);
-		articles.add(a3);
-		
-	}
-
-	public void printHelp() {
-		System.out.println("add    : 게시물 등록");
-		System.out.println("list   : 게시물 목록");
-		System.out.println("update : 게시물 수정");
-		System.out.println("eixt   : 프로그램 종료");
 	}
 	
 	public void updateArticle() {
@@ -85,21 +80,21 @@ public class Board {
 		int no = Integer.parseInt(sc.nextLine());
 		int index = no - 1;
 
-		// 0, 마지막 인덱스 = size - 1
-		if (index < 0 || index >= articles.size()) {
+		Article article = repo.getArticleOne(index);
+
+		if(article == null) {
 			System.out.println("없는 게시물입니다.");
-			return;
+		} else {		
+			System.out.print("새제목 : ");
+			String title = sc.nextLine();
+			System.out.print("새내용 : ");
+			String body = sc.nextLine();
+	
+			Article newArticle = new Article(title, body);
+			repo.updateArticle(newArticle, index);
+	
+			System.out.println("수정이 완료되었습니다.");
 		}
-
-		System.out.print("새제목 : ");
-		String title = sc.nextLine();
-		System.out.print("새내용 : ");
-		String body = sc.nextLine();
-
-		Article article = new Article(title, body);
-		articles.set(index, article);
-
-		System.out.println("수정이 완료되었습니다.");
 //		printArticles();
 		
 	}
@@ -112,20 +107,11 @@ public class Board {
 		String body = sc.nextLine();
 
 		Article article = new Article(title, body);
-		articles.add(article);
+		repo.addArticle(article);
 
 		System.out.println("게시물이 저장되었습니다.");
 
 	}
 	
-	public void printArticles(ArrayList<Article> articles) {
-		// list 전체 출력
-		for(int i = 0; i < articles.size(); i++) {
-			Article article = articles.get(i);
-			
-			System.out.printf("번호: %d\n", i + 1);
-			System.out.printf("제목: %s\n", article.title);			
-			System.out.println("==========================");
-		}
-	}
+	
 }
