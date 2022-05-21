@@ -23,12 +23,16 @@ public class Board {
 				addArticle();
 				
 			} else if (cmd.equals("list")) {
-				printArticles();
+				printArticles(articles);
 
 			} else if (cmd.equals("update")) {
 				updateArticle();
-
-			}  else if (cmd.equals("exit")) {
+				printArticles(articles);
+				
+			} else if(cmd.equals("search")) {
+				searchArticles();				
+				
+			} else if (cmd.equals("exit")) {
 				System.out.println("프로그램을 종료합니다.");
 				break;
 
@@ -38,6 +42,23 @@ public class Board {
 		}
 	}
 	
+	private void searchArticles() {
+		
+		System.out.print("검색 키워드를 입력해주세요 : ");
+		String keyword = sc.nextLine();
+		
+		ArrayList<Article> searchedArticleList = new ArrayList<>();
+		
+		for(int i = 0; i < articles.size(); i++) {
+			if(articles.get(i).title.contains(keyword)) {
+				searchedArticleList.add(articles.get(i));
+			}
+		}
+		
+		printArticles(searchedArticleList);
+		
+	}
+
 	private void makeTestData() {		
 		
 		Article a1 = new Article("제목1", "내용1");
@@ -79,7 +100,7 @@ public class Board {
 		articles.set(index, article);
 
 		System.out.println("수정이 완료되었습니다.");
-		printArticles();
+//		printArticles();
 		
 	}
 
@@ -97,7 +118,7 @@ public class Board {
 
 	}
 	
-	public void printArticles() {
+	public void printArticles(ArrayList<Article> articles) {
 		// list 전체 출력
 		for(int i = 0; i < articles.size(); i++) {
 			Article article = articles.get(i);
