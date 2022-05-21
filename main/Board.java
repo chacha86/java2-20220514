@@ -10,6 +10,8 @@ public class Board {
 	
 	public void run() {	
 
+		makeTestData();
+		
 		while (true) {
 			System.out.print(">> ");
 			String cmd = sc.nextLine();
@@ -36,6 +38,18 @@ public class Board {
 		}
 	}
 	
+	private void makeTestData() {		
+		
+		Article a1 = new Article("제목1", "내용1");
+		Article a2 = new Article("제목2", "내용2");
+		Article a3 = new Article("제목3", "내용3");
+		
+		articles.add(a1);
+		articles.add(a2);
+		articles.add(a3);
+		
+	}
+
 	public void printHelp() {
 		System.out.println("add    : 게시물 등록");
 		System.out.println("list   : 게시물 목록");
