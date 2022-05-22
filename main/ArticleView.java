@@ -11,6 +11,7 @@ public class ArticleView {
 
 			System.out.printf("번호: %d\n", article.getId());
 			System.out.printf("제목: %s\n", article.getTitle());
+			System.out.printf("등록일: %s\n", article.getRegDate());
 			System.out.println("==========================");
 		}
 	}
@@ -19,6 +20,7 @@ public class ArticleView {
 		System.out.printf("========= %d번 게시물 =========\n", article.getId());
 		System.out.printf("번호 : %d\n", article.getId());
 		System.out.printf("제목 : %s\n", article.getTitle());
+		System.out.printf("등록일: %s\n", article.getRegDate());
 		System.out.println("------------------------------");
 		System.out.printf("내용 : %s\n", article.getBody());
 		System.out.println("------------------------------");

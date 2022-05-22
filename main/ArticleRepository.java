@@ -1,5 +1,7 @@
 package main;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ArticleRepository {
@@ -9,9 +11,9 @@ public class ArticleRepository {
 
 	public void makeTestData() {		
 		
-		Article a1 = new Article(1, "제목1", "내용1");
-		Article a2 = new Article(2, "제목2", "내용2");
-		Article a3 = new Article(3, "제목3", "내용3");
+		Article a1 = new Article(1, "제목1", "내용1", Util.getCurrentDate());
+		Article a2 = new Article(2, "제목2", "내용2", Util.getCurrentDate());
+		Article a3 = new Article(3, "제목3", "내용3", Util.getCurrentDate());
 		
 		articles.add(a1);
 		articles.add(a2);
@@ -22,8 +24,8 @@ public class ArticleRepository {
 	// C
 	
 	public void addArticle(String title, String body) {		
-		
-		Article article = new Article(articleId, title, body);
+				
+		Article article = new Article(articleId, title, body, Util.getCurrentDate());
 		articles.add(article);
 		articleId++;
 	}
