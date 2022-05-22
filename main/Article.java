@@ -2,12 +2,22 @@ package main;
 
 public class Article {
 
+	private int id;
 	private String title;
 	private String body;
 	
-	public Article(String title, String body) {
-		this.title = title; // this는 인스턴스를 의미.
+	public Article(int id, String title, String body) {
+		this.id = id; 
+		this.title = title;
 		this.body = body;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getTitle() {

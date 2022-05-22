@@ -7,7 +7,7 @@ public class Board {
 
 	ArticleRepository repo = new ArticleRepository();
 	ArticleView articleView = new ArticleView();
-	
+
 	Scanner sc = new Scanner(System.in);
 	
 	public void run() {	
@@ -15,7 +15,7 @@ public class Board {
 		repo.makeTestData();
 		
 		while (true) {
-			System.out.print(">> ");
+			System.out.print(">>  ");
 			String cmd = sc.nextLine();
 
 			if (cmd.equals("help")) {
@@ -37,6 +37,9 @@ public class Board {
 			} else if(cmd.equals("read")) {
 				readArticle();
 				
+			} else if(cmd.equals("delete")) {
+				deleteArticle();
+				
 			} else if (cmd.equals("exit")) {
 				System.out.println("프로그램을 종료합니다.");
 				break;
@@ -47,19 +50,29 @@ public class Board {
 		}
 	}
 	
+	private void deleteArticle() {		
+		System.out.print("삭제 할 게시물 번호 : ");
+		int targetId = Integer.parseInt(sc.nextLine());
+		
+		Article article = repo.getArticleOne(targetId); 		
+		repo.deleteArticle(article);		
+		
+		System.out.println("삭제가 완료되었습니다.");
+		
+	}
+
 	private void readArticle() {
 		
 		System.out.print("상세보기 할 게시물 번호 : ");
-		int targetIdx = Integer.parseInt(sc.nextLine());
-		targetIdx--;
+		int targetId = Integer.parseInt(sc.nextLine());		
 		
-		Article article = repo.getArticleOne(targetIdx);
+		Article article = repo.getArticleOne(targetId);
 		
 		if(article == null) {
 			System.out.println("없는 게시물입니다.");
 			
 		} else {
-			articleView.printArticleDetail(article, targetIdx);
+			articleView.printArticleDetail(article);
 		}
 	}
 	
@@ -77,10 +90,9 @@ public class Board {
 		// CRUD
 
 		System.out.print("수정할 게시물 번호 : ");
-		int no = Integer.parseInt(sc.nextLine());
-		int index = no - 1;
-
-		Article article = repo.getArticleOne(index);
+		int targetId = Integer.parseInt(sc.nextLine());
+		
+		Article article = repo.getArticleOne(targetId);
 
 		if(article == null) {
 			System.out.println("없는 게시물입니다.");
@@ -89,9 +101,8 @@ public class Board {
 			String title = sc.nextLine();
 			System.out.print("새내용 : ");
 			String body = sc.nextLine();
-	
-			Article newArticle = new Article(title, body);
-			repo.updateArticle(newArticle, index);
+				
+			repo.updateArticle(article, title, body);
 	
 			System.out.println("수정이 완료되었습니다.");
 		}
@@ -105,10 +116,8 @@ public class Board {
 
 		System.out.print("내용 :");
 		String body = sc.nextLine();
-
-		Article article = new Article(title, body);
-		repo.addArticle(article);
-
+		
+		repo.addArticle(title, body);
 		System.out.println("게시물이 저장되었습니다.");
 
 	}

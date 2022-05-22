@@ -9,15 +9,15 @@ public class ArticleView {
 		for (int i = 0; i < articles.size(); i++) {
 			Article article = articles.get(i);
 
-			System.out.printf("번호: %d\n", i + 1);
+			System.out.printf("번호: %d\n", article.getId());
 			System.out.printf("제목: %s\n", article.getTitle());
 			System.out.println("==========================");
 		}
 	}
 
-	public void printArticleDetail(Article article, int targetIdx) {
-		System.out.printf("========= %d번 게시물 =========\n", targetIdx + 1);
-		System.out.printf("번호 : %d\n", targetIdx + 1);
+	public void printArticleDetail(Article article) {
+		System.out.printf("========= %d번 게시물 =========\n", article.getId());
+		System.out.printf("번호 : %d\n", article.getId());
 		System.out.printf("제목 : %s\n", article.getTitle());
 		System.out.println("------------------------------");
 		System.out.printf("내용 : %s\n", article.getBody());
