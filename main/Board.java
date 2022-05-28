@@ -7,7 +7,7 @@ public class Board {
 
 	ArticleRepository repo = new ArticleRepository();
 	ArticleView articleView = new ArticleView();
-
+	
 	Scanner sc = new Scanner(System.in);
 	
 	public void run() {	
@@ -72,6 +72,7 @@ public class Board {
 			System.out.println("없는 게시물입니다.");
 			
 		} else {
+			repo.increaseReadCnt(article);
 			articleView.printArticleDetail(article);
 		}
 	}
