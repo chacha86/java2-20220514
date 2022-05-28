@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class Board {
 
+	LoginFlag flag;
 	ArticleRepository repo = new ArticleRepository();
 	ArticleView articleView = new ArticleView();
 	
@@ -46,6 +47,9 @@ public class Board {
 			} else if(cmd.equals("mlist")) {
 				articleView.printMembers(repo.getMembers());
 				
+			} else if(cmd.equals("login")) {
+				login();
+				
 			} else if (cmd.equals("exit")) {
 				System.out.println("프로그램을 종료합니다.");
 				break;
@@ -56,6 +60,29 @@ public class Board {
 		}
 	}
 	
+	private void login() {
+		System.out.print("아이디 :");
+		String loginId = sc.nextLine();
+
+		System.out.print("비밀번호 :");
+		String loginPw = sc.nextLine();
+		
+		LoginFlag result = repo.doLogin(loginId, loginPw);
+		
+		if(result == flag.LOGIN_SUCCESS) {
+			System.out.println("로그인 성공");
+			
+		} else if(result == flag.NOT_EXIST_LOGIN_ID) {
+			System.out.println("없는 아이디입니다.");
+			
+		} else {
+			System.out.println("비밀번호를 틀렸습니다.");
+		}
+		
+		
+		
+	}
+
 	private void signup() {
 		System.out.print("아이디 :");
 		String loginId = sc.nextLine();
