@@ -40,6 +40,12 @@ public class Board {
 			} else if(cmd.equals("delete")) {
 				deleteArticle();
 				
+			} else if(cmd.equals("signup")) {
+				signup();
+				
+			} else if(cmd.equals("mlist")) {
+				articleView.printMembers(repo.getMembers());
+				
 			} else if (cmd.equals("exit")) {
 				System.out.println("프로그램을 종료합니다.");
 				break;
@@ -50,6 +56,20 @@ public class Board {
 		}
 	}
 	
+	private void signup() {
+		System.out.print("아이디 :");
+		String loginId = sc.nextLine();
+
+		System.out.print("비밀번호 :");
+		String loginPw = sc.nextLine();
+		
+		System.out.print("이름 :");
+		String nickname = sc.nextLine();
+		
+		repo.addMember(loginId, loginPw, nickname);
+		System.out.println("회원가입이 완료되었습니다.");
+	}
+
 	private void deleteArticle() {		
 		System.out.print("삭제 할 게시물 번호 : ");
 		int targetId = Integer.parseInt(sc.nextLine());

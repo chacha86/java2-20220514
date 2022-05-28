@@ -82,4 +82,11 @@ public class ArticleView {
 					String.valueOf(article.getHit()));
 		}
 	}
+	
+	public void printMembers(ArrayList<Member> members) {
+		for(int i = 0; i < members.size(); i++) {
+			System.out.printf("%s , %s \n", members.get(i).getLoginId(), members.get(i).getNickname());
+		}
+	}
+	
 }
