@@ -29,7 +29,11 @@ public class Board {
 				articleView.printHelp();
 
 			} else if (cmd.equals("add")) {
-				addArticle();
+				
+				if(isLogined()) {					
+					addArticle();
+				}
+				
 				
 			} else if (cmd.equals("list")) {
 				articleView.printArticles(repo.getArticles());
@@ -42,7 +46,9 @@ public class Board {
 				searchArticles();				
 				
 			} else if(cmd.equals("read")) {
-				readArticle();
+				if(isLogined()) {
+					readArticle();					
+				}
 				
 			} else if(cmd.equals("delete")) {
 				deleteArticle();
@@ -69,6 +75,15 @@ public class Board {
 		}
 	}
 	
+	private boolean isLogined() {
+		if(loginedMember == null) {
+			System.out.println("로그인이 필요한 기능입니다.");
+			return false;
+		}
+		
+		return true;
+	}
+
 	private String printInputCommand() {
 		
 		if(loginedMember != null) {
@@ -204,7 +219,7 @@ public class Board {
 		System.out.print("내용 :");
 		String body = sc.nextLine();
 		
-		repo.addArticle(title, body);
+		repo.addArticle(title, body, loginedMember.getNickname());
 		System.out.println("게시물이 저장되었습니다.");
 
 	}

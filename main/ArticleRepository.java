@@ -41,9 +41,9 @@ public class ArticleRepository {
 	
 	// C
 	
-	public void addArticle(String title, String body) {		
+	public void addArticle(String title, String body, String nickname) {		
 				
-		Article article = new Article(articleId, title, body, "익명", Util.getCurrentDate(), 0);
+		Article article = new Article(articleId, title, body, nickname, Util.getCurrentDate(), 0);
 		articles.add(article);
 		articleId++;
 	}
