@@ -2,7 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
-public enum LoginFlag {
+enum LoginFlag {
 	LOGIN_SUCCESS, // 0
 	NOT_EXIST_LOGIN_ID, // 1
 	NO_MATCH_PASS // 2
@@ -27,9 +27,15 @@ public class ArticleRepository {
 		Article a2 = new Article(2, "제목2", "내용2", "이순신", Util.getCurrentDate(), 10);
 		Article a3 = new Article(3, "제목3", "내용3", "황진이", Util.getCurrentDate(), 30);
 		
+		Member m1 = new Member(1, "hong123", "h1234", "홍길동");
+		Member m2 = new Member(2, "lee123", "lee123", "이순신");
+		
 		articles.add(a1);
 		articles.add(a2);
 		articles.add(a3);
+		
+		members.add(m1);
+		members.add(m2);
 		
 	}
 	
@@ -93,7 +99,7 @@ public class ArticleRepository {
 	}
 
 	public void addMember(String loginId, String loginPw, String nickname) {		
-		Member member = new Member(loginId, loginPw, nickname);
+		Member member = new Member(memberId, loginId, loginPw, nickname);
 		members.add(member);
 		memberId++;			
 	}

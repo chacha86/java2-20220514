@@ -8,6 +8,8 @@ public class Board {
 	LoginFlag flag;
 	ArticleRepository repo = new ArticleRepository();
 	ArticleView articleView = new ArticleView();
+	boolean isLoginFlag = false;
+	Member loginedMember = null;
 	
 	Scanner sc = new Scanner(System.in);
 	
@@ -16,7 +18,13 @@ public class Board {
 		repo.makeTestData();
 		
 		while (true) {
-			System.out.print(">>  ");
+			if(isLoginFlag) {
+				System.out.printf("(%s(%s))  >>  ", loginedMember.getNickname(), loginedMember.getLoginId());
+				
+			} else {				
+				System.out.print(">>  ");
+				
+			}
 			String cmd = sc.nextLine();
 
 			if (cmd.equals("help")) {
@@ -70,16 +78,28 @@ public class Board {
 		LoginFlag result = repo.doLogin(loginId, loginPw);
 		
 		if(result == flag.LOGIN_SUCCESS) {
-			System.out.println("로그인 성공");
+			Member member = repo.getMemberByLoginId(loginId);
+			loginSuccessProcess(member);
 			
 		} else if(result == flag.NOT_EXIST_LOGIN_ID) {
 			System.out.println("없는 아이디입니다.");
 			
 		} else {
 			System.out.println("비밀번호를 틀렸습니다.");
+			
 		}
 		
+	}
+
+	private void loginSuccessProcess(Member member) {
+		// 1. 환영인사.
+		System.out.printf("%s님 안녕하세요!!\n", member.getNickname());
 		
+		// 2. 로그인 여부를 세팅
+		isLoginFlag = true;
+		
+		// 3. 로그인 유저 정보 세팅
+		loginedMember = member;
 		
 	}
 

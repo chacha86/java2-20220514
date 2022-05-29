@@ -7,12 +7,14 @@ public class Member {
 	private String loginPw;
 	private String nickname;
 	
-	public Member(String loginId, String loginPw, String nickname) {
+	public Member(int id, String loginId, String loginPw, String nickname) {
 		super();
+		this.id = id;
 		this.loginId = loginId;
 		this.loginPw = loginPw;
 		this.nickname = nickname;
 	}
+	
 	public String getLoginId() {
 		return loginId;
 	}
