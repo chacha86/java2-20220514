@@ -61,17 +61,23 @@ public class ArticleView {
 	}
 
 	public void f2(String s1, String s2, String s3, String s4, String s5) {
+		
+		
 		if (s2.length() >= 10) {
 			s2 = s2.substring(0, 7) + "...";
+		}
+		
+		if (s3.length() >= 10) {
+			s3 = s3.substring(0, 7) + "...";
 		}
 
 		System.out.print(add_padding(s1, 8));
 		System.out.print(add_padding(s2, 20));
-		System.out.print(add_padding(s3, 8));
-		System.out.print(add_padding(s4, 12));
+		System.out.print(add_padding(s3, 20));
+		System.out.print(add_padding(s4, 13));
 		System.out.print(add_padding(s5, 0));
 		System.out.println();
-		System.out.println("----------------------------------------------------------------");
+		System.out.println("--------------------------------------------------------------------");
 	}
 
 	public void printArticles(ArrayList<Article> articles) {

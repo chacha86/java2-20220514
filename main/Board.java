@@ -7,25 +7,23 @@ public class Board {
 
 	LoginFlag flag;
 	ArticleRepository repo = new ArticleRepository();
-	ArticleView articleView = new ArticleView();
-	boolean isLoginFlag = false;
+	ArticleView articleView = new ArticleView();	
+	//boolean isLoginFlag = false;
 	Member loginedMember = null;
 	
 	Scanner sc = new Scanner(System.in);
 	
-	public void run() {	
-
+	public Board() {
 		repo.makeTestData();
+		//isLoginFlag = true;
+		loginedMember = repo.getMemberByLoginId("hong123");
+	}
+	
+	public void run() {	
 		
 		while (true) {
-			if(isLoginFlag) {
-				System.out.printf("(%s(%s))  >>  ", loginedMember.getNickname(), loginedMember.getLoginId());
-				
-			} else {				
-				System.out.print(">>  ");
-				
-			}
-			String cmd = sc.nextLine();
+			
+			String cmd = printInputCommand();
 
 			if (cmd.equals("help")) {
 				articleView.printHelp();
@@ -58,6 +56,9 @@ public class Board {
 			} else if(cmd.equals("login")) {
 				login();
 				
+			} else if(cmd.equals("logout")) {
+				logout();
+				
 			} else if (cmd.equals("exit")) {
 				System.out.println("프로그램을 종료합니다.");
 				break;
@@ -68,6 +69,27 @@ public class Board {
 		}
 	}
 	
+	private String printInputCommand() {
+		
+		if(loginedMember != null) {
+			System.out.printf("(%s(%s))  >>  ", loginedMember.getNickname(), loginedMember.getLoginId());
+			
+		} else {				
+			System.out.print(">>  ");
+			
+		}
+		
+		String cmd = sc.nextLine();
+		
+		return cmd;
+	}
+
+	private void logout() {
+		loginedMember = null;
+		System.out.println("로그아웃 되셨습니다.");
+		
+	}
+
 	private void login() {
 		System.out.print("아이디 :");
 		String loginId = sc.nextLine();
@@ -94,11 +116,8 @@ public class Board {
 	private void loginSuccessProcess(Member member) {
 		// 1. 환영인사.
 		System.out.printf("%s님 안녕하세요!!\n", member.getNickname());
-		
-		// 2. 로그인 여부를 세팅
-		isLoginFlag = true;
-		
-		// 3. 로그인 유저 정보 세팅
+	
+		// 2. 로그인 유저 정보 세팅
 		loginedMember = member;
 		
 	}

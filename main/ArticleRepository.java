@@ -9,7 +9,7 @@ enum LoginFlag {
 }
 
 public class ArticleRepository {
-
+	
 	
 	// final -> 변수를 상수화.
 	LoginFlag flag;
@@ -22,13 +22,13 @@ public class ArticleRepository {
 
 	public void makeTestData() {		
 		
-				
-		Article a1 = new Article(1, "제목1", "내용1", "홍길동", Util.getCurrentDate(), 20);
+		
+		Article a1 = new Article(1, "제목1", "내용1", "이순신", Util.getCurrentDate(), 20);
 		Article a2 = new Article(2, "제목2", "내용2", "이순신", Util.getCurrentDate(), 10);
 		Article a3 = new Article(3, "제목3", "내용3", "황진이", Util.getCurrentDate(), 30);
 		
 		Member m1 = new Member(1, "hong123", "h1234", "홍길동");
-		Member m2 = new Member(2, "lee123", "lee123", "이순신");
+		Member m2 = new Member(2, "lee123", "lee123", "순신");
 		
 		articles.add(a1);
 		articles.add(a2);
