@@ -197,10 +197,6 @@ public class Board {
 				break;
 			} 			
 		}
-		
-		
-		
-		
 	}
 
 	private void searchArticles() {
