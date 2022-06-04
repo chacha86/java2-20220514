@@ -174,19 +174,24 @@ public class Board {
 			
 		} else {
 			repo.increaseReadCnt(article);
-			articleView.printArticleDetail(article);
-			readProcess();
+			ArrayList<Reply> replies = repo.getRepliesByArticleId(article.getId());
+			articleView.printArticleDetail(article, replies);
+			readProcess(article);
 		}
 	}
 	
-	private void readProcess() {
+	private void readProcess(Article article) {
 		
 		while(true) {
 			System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 추천, 3. 수정, 4. 삭제, 5. 목록으로) : ");
 			int readCmdNo = Integer.parseInt(sc.nextLine());
 			
 			if(readCmdNo == 1) {
-				System.out.println("[댓글등록]");
+								
+				addReply(article);
+				ArrayList<Reply> replies = repo.getRepliesByArticleId(article.getId());
+				articleView.printArticleDetail(article, replies);
+				
 			} else if(readCmdNo == 2) {
 				System.out.println("[추천]");
 			} else if(readCmdNo == 3) {
@@ -197,6 +202,13 @@ public class Board {
 				break;
 			} 			
 		}
+	}
+
+	private void addReply(Article article) {
+		System.out.print("댓글 내용을 입력해주세요 : ");
+		String body = sc.nextLine();
+		repo.addReply(article.getId(), body, loginedMember.getNickname());
+		System.out.println("댓글이 등록되었습니다.");
 	}
 
 	private void searchArticles() {

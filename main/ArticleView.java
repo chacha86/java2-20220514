@@ -18,7 +18,7 @@ public class ArticleView {
 //		}
 //	}
 
-	public void printArticleDetail(Article article) {
+	public void printArticleDetail(Article article, ArrayList<Reply> replies) {
 		System.out.printf("========= %d번 게시물 =========\n", article.getId());
 		System.out.printf("번호 : %d\n", article.getId());
 		System.out.printf("제목 : %s\n", article.getTitle());
@@ -28,6 +28,15 @@ public class ArticleView {
 		System.out.println("------------------------------");
 		System.out.printf("내용 : %s\n", article.getBody());
 		System.out.println("------------------------------");
+		
+		System.out.println("======= 댓글 =======");
+		for(int i = 0; i < replies.size(); i++) {
+			System.out.printf("내용 : %s\n", replies.get(i).getBody());
+			System.out.printf("작성자 : %s\n", replies.get(i).getNickname());
+			System.out.printf("작성일 : %s\n", replies.get(i).getRegDate());
+			System.out.println("===================");			
+		}
+		
 		System.out.println("===============================");
 	}
 

@@ -7,7 +7,7 @@ public class Article {
 	private String body;
 	private String nickname;
 	private String regDate;
-	private int hit;
+	private int hit;	
 	
 	
 	public Article(int id, String title, String body, String nickname, String regDate, int hit) {
