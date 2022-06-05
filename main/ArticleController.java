@@ -9,9 +9,7 @@ public class ArticleController {
 	Member loginedMember = null;
 	Scanner sc = new Scanner(System.in);
 	
-	public void doCommand() {
-
-		String cmd = printInputCommand();
+	public void doCommand(String cmd) {
 
 		if (cmd.equals("add")) {
 
@@ -37,7 +35,10 @@ public class ArticleController {
 		} else if (cmd.equals("delete")) {
 			deleteArticle();
 
+		} else {
+			System.out.println("잘못된 명령어 입니다.");
 		}
+		
 	}
 	
 	private boolean isLogined() {

@@ -10,9 +10,7 @@ public class MemberController {
 	Scanner sc = new Scanner(System.in);
 	LoginFlag flag;
 	
-	public void doCommand() {
-
-		String cmd = printInputCommand();
+	public void doCommand(String cmd) {		
 
 		if (cmd.equals("signup")) {
 			signup();
@@ -26,6 +24,8 @@ public class MemberController {
 		} else if (cmd.equals("logout")) {
 			logout();
 
+		} else {
+			System.out.println("잘못된 명령어 입니다.");
 		}
 	}
 
