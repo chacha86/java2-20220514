@@ -1,13 +1,20 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class ArticleController {
-	ArticleRepository repo = new ArticleRepository();
-	ArticleView articleView = new ArticleView();
-	Member loginedMember = null;
-	Scanner sc = new Scanner(System.in);
+public class ArticleController extends BaseController {
+	
+	ApplicationData application = null;
+	
+	public ArticleController(ApplicationData application) {
+		
+		super(application);		
+		this.application = application;		
+		Member loginedMember = repo.getMemberByLoginId("hong123");
+		application.setLoginedMember(loginedMember);
+		
+		repo.makeTestData();
+	}
 	
 	public void doCommand(String cmd) {
 
@@ -40,30 +47,6 @@ public class ArticleController {
 		}
 		
 	}
-	
-	private boolean isLogined() {
-		if(loginedMember == null) {
-			System.out.println("로그인이 필요한 기능입니다.");
-			return false;
-		}
-		
-		return true;
-	}
-
-	private String printInputCommand() {
-
-		if (loginedMember != null) {
-			System.out.printf("%s(%s))  >>  ", loginedMember.getNickname(), loginedMember.getLoginId());
-
-		} else {
-			System.out.print(">>  ");
-
-		}
-
-		String cmd = sc.nextLine();
-
-		return cmd;
-	}
 
 	public void addArticle() {
 		System.out.print("제목 :");
@@ -72,7 +55,7 @@ public class ArticleController {
 		System.out.print("내용 :");
 		String body = sc.nextLine();
 
-		repo.addArticle(title, body, loginedMember.getNickname());
+		repo.addArticle(title, body, application.getLoginedMember().getNickname());
 		System.out.println("게시물이 저장되었습니다.");
 
 	}
@@ -133,7 +116,7 @@ public class ArticleController {
 	private void addReply(Article article) {
 		System.out.print("댓글 내용을 입력해주세요 : ");
 		String body = sc.nextLine();
-		repo.addReply(article.getId(), body, loginedMember.getNickname());
+		repo.addReply(article.getId(), body, application.getLoginedMember().getNickname());
 		System.out.println("댓글이 등록되었습니다.");
 	}
 
@@ -167,8 +150,6 @@ public class ArticleController {
 
 			System.out.println("수정이 완료되었습니다.");
 		}
-//		printArticles();
-
 	}
 
 }

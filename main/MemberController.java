@@ -2,13 +2,14 @@ package main;
 
 import java.util.Scanner;
 
-public class MemberController {
+public class MemberController extends BaseController {
 
-	ArticleRepository repo = new ArticleRepository();
-	ArticleView articleView = new ArticleView();
-	Member loginedMember = null;
-	Scanner sc = new Scanner(System.in);
-	LoginFlag flag;
+	ApplicationData application = null;
+	
+	public MemberController(ApplicationData application) {
+		super(application);
+		this.application = application;
+	}
 	
 	public void doCommand(String cmd) {		
 
@@ -28,24 +29,9 @@ public class MemberController {
 			System.out.println("잘못된 명령어 입니다.");
 		}
 	}
-
-	private String printInputCommand() {
-
-		if (loginedMember != null) {
-			System.out.printf("%s(%s))  >>  ", loginedMember.getNickname(), loginedMember.getLoginId());
-
-		} else {
-			System.out.print(">>  ");
-
-		}
-
-		String cmd = sc.nextLine();
-
-		return cmd;
-	}
 	
 	private void logout() {
-		loginedMember = null;
+		application.setLoginedMember(null);
 		System.out.println("로그아웃 되셨습니다.");
 		
 	}
@@ -78,7 +64,7 @@ public class MemberController {
 		System.out.printf("%s님 안녕하세요!!\n", member.getNickname());
 	
 		// 2. 로그인 유저 정보 세팅
-		loginedMember = member;
+		application.setLoginedMember(member);
 		
 	}
 

@@ -4,19 +4,12 @@ import java.util.Scanner;
 
 public class Board {
 
-	ArticleRepository repo = new ArticleRepository();
 	ArticleView articleView = new ArticleView();	
-	Member loginedMember = null;
-	
+	ApplicationData application = new ApplicationData();
 	Scanner sc = new Scanner(System.in);
-	ArticleController ac = new ArticleController();
-	MemberController mc = new MemberController();
-	
-	public Board() {
-		repo.makeTestData();
-		loginedMember = repo.getMemberByLoginId("hong123");
-	}
-	
+	ArticleController ac = new ArticleController(application);
+	MemberController mc = new MemberController(application);
+
 	public void run() {	
 		
 		while (true) {
@@ -56,6 +49,8 @@ public class Board {
 	}
 
 	private String printInputCommand() {
+		
+		Member loginedMember = application.getLoginedMember();
 		
 		if(loginedMember != null) {
 			System.out.printf("%s(%s))  >>  ", loginedMember.getNickname(), loginedMember.getLoginId());
