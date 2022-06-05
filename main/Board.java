@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Board {
 
 	ArticleView articleView = new ArticleView();	
-	ApplicationData application = new ApplicationData();
+	ApplicationData application = new ApplicationData();	
 	Scanner sc = new Scanner(System.in);
 	ArticleController ac = new ArticleController(application);
 	MemberController mc = new MemberController(application);

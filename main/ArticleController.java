@@ -9,6 +9,7 @@ public class ArticleController extends BaseController {
 	public ArticleController(ApplicationData application) {
 		
 		super(application);		
+		
 		this.application = application;		
 		Member loginedMember = repo.getMemberByLoginId("hong123");
 		application.setLoginedMember(loginedMember);

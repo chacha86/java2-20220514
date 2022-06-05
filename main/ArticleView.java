@@ -36,8 +36,6 @@ public class ArticleView {
 			System.out.printf("작성일 : %s\n", replies.get(i).getRegDate());
 			System.out.println("===================");			
 		}
-		
-		System.out.println("===============================");
 	}
 
 	public void printHelp() {
